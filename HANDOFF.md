@@ -21,7 +21,7 @@ Status values: `NOT STARTED` · `CLAIMED` · `IN PROGRESS` · `IN REVIEW` · `DO
 
 | WP | Name | Depends on | Status | Owner | Branch | Updated | Notes |
 |---|---|---|---|---|---|---|---|
-| 0 | Foundation | none | NOT STARTED | | | 2026-11-05 | Start here. Blocks everything else. |
+| 0 | Foundation | none | CLAIMED | Claude (for project owner) | wp-0/foundation | 2026-11-05 | Start here. Blocks everything else. |
 | 1 | Agent prompt pack v0.1 | 0 | NOT STARTED | | | 2026-11-05 | |
 | 2 | Backend core | 0 | NOT STARTED | | | 2026-11-05 | |
 | 3 | Hardware probe and tiers | 0 | NOT STARTED | | | 2026-11-05 | |
@@ -42,7 +42,7 @@ Status values: `NOT STARTED` · `CLAIMED` · `IN PROGRESS` · `IN REVIEW` · `DO
 ## 4. Next actions (ordered)
 
 1. [ ] Create the GitHub repo, enable branch protection on `main`, and invite collaborators (owner).
-2. [ ] Commit `MASTER_PROMPT.md` and `HANDOFF.md` to `main` (owner).
+2. [x] Commit `MASTER_PROMPT.md` and `HANDOFF.md` (done on `master`; default branch is still `master`, rename to `main` pending).
 3. [ ] Complete WP0: scaffold, schemas, contracts, CI, templates, sample Gideon storyboard.
 4. [ ] Open one GitHub Issue per WP and label it by role.
 5. [ ] Start WP1, then WP3, WP4, WP5, WP6a in parallel.
