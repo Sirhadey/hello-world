@@ -1,0 +1,22 @@
+# Label list. Apply with a labeler tool or create by hand in GitHub.
+- {name: wp, color: "0e8a16", description: "Work package tracking issue"}
+- {name: wp0, color: "c5def5", description: "Foundation"}
+- {name: wp1, color: "c5def5", description: "Agent prompt pack"}
+- {name: wp2, color: "c5def5", description: "Backend core"}
+- {name: wp3, color: "c5def5", description: "Hardware probe and tiers"}
+- {name: wp4, color: "c5def5", description: "Image router"}
+- {name: wp5, color: "c5def5", description: "Voice (Kokoro)"}
+- {name: wp6, color: "c5def5", description: "Render engine"}
+- {name: wp7, color: "c5def5", description: "Auditor"}
+- {name: wp8, color: "c5def5", description: "Web UI"}
+- {name: wp9, color: "c5def5", description: "Packaging and polish"}
+- {name: wp10, color: "c5def5", description: "Pilot and hardening"}
+- {name: role:backend, color: "1d76db", description: "Backend role"}
+- {name: role:frontend, color: "1d76db", description: "Frontend and design role"}
+- {name: role:media, color: "1d76db", description: "Media and FFmpeg role"}
+- {name: role:prompts, color: "1d76db", description: "Prompts and content QA role"}
+- {name: adr, color: "5319e7", description: "Architecture decision record"}
+- {name: master-prompt, color: "5319e7", description: "Change to MASTER_PROMPT.md"}
+- {name: contract, color: "5319e7", description: "Schema or interface change"}
+- {name: blocked, color: "b60205", description: "Blocked on something"}
+- {name: bug, color: "d73a4a", description: "Something is broken"}

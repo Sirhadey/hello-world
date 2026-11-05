@@ -1,0 +1,18 @@
+Bible Story Studio
+Copyright 2026 The Bible Story Studio contributors
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+Third-party content
+-------------------
+Add an entry here for every third-party library, model, font, dataset, image
+set, sound or music file introduced to the project (MASTER_PROMPT.md, C7).
+Each entry: name, version, license, source URL, how it is used.
+
+(No third-party content has been added yet.)
+
+Planned (to be verified when implemented; not bundled):
+- Kokoro TTS (WP5): license to be verified at implementation.
+- Bible text, World English Bible and/or KJV (public domain): to be added with WP7/WP2 data.
+- FFmpeg: user-installed or downloaded on first run; license shown to the user.
+- WanGP (optional, separate install): requires attribution; never bundled.

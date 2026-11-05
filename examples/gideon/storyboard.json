@@ -1,0 +1,177 @@
+{
+  "schema_version": "storyboard.v1",
+  "meta": {
+    "title": "Gideon and the 300: When Less Is Enough",
+    "target_length_s": 720,
+    "tone": "calm, reverent",
+    "style_preset": "painterly-near-east",
+    "translation": "WEB",
+    "language": "en"
+  },
+  "style_lock": {
+    "palette": ["warm ochre", "dusty olive", "deep indigo", "sunset amber"],
+    "medium": "painterly digital illustration, soft brush texture",
+    "lighting": "low golden-hour light with gentle haze",
+    "negative_prompt": "text, lettering, watermark, logo, modern objects, photorealistic faces, gore",
+    "grade_preset": "warm-muted-film"
+  },
+  "scenes": [
+    {
+      "id": "s001",
+      "order": 1,
+      "narration": {
+        "text": "Imagine hiding in a winepress, threshing wheat in secret, because every harvest ends up stolen. That is where we first meet Gideon.",
+        "voice": "am_michael",
+        "speed": 0.92
+      },
+      "shot": {
+        "type": "establishing",
+        "camera_move": {"kind": "zoom_in", "intensity": 0.3, "direction": "in"},
+        "transition": "dip_black",
+        "overlays": ["dust", "grain", "vignette"]
+      },
+      "image": {
+        "prompt": "A young man threshing wheat in secret inside a stone winepress, golden-hour light through a gap in the wall, painterly ancient Near East, no text, no lettering, no watermark",
+        "provider_hint": null,
+        "seed": 1001,
+        "asset_ref": null
+      },
+      "sound": {"sfx_tags": ["wind_soft"], "music_tag": "solemn_strings_low", "level_db": -22, "duck_under_narration": true},
+      "onscreen_text": [
+        {"text_id": "t001", "text": "Gideon", "position": "center", "start_s": 0.5, "end_s": 3.5, "style": "title"},
+        {"text_id": "t002", "text": "Judges 6", "position": "lower_third", "start_s": 0.5, "end_s": 3.5, "style": "reference"}
+      ],
+      "scripture_refs": ["Judges 6:11"],
+      "notes": "Hook within 10 seconds. Open loop: why would 300 be enough?"
+    },
+    {
+      "id": "s002",
+      "order": 2,
+      "narration": {
+        "text": "For seven years, Midian had overrun the land. Israel lived in caves and mountain strongholds, and many were afraid.",
+        "voice": "am_michael",
+        "speed": 0.92
+      },
+      "shot": {
+        "type": "wide",
+        "camera_move": {"kind": "pan", "intensity": 0.4, "direction": "right"},
+        "transition": "crossfade",
+        "overlays": ["dust", "vignette"]
+      },
+      "image": {
+        "prompt": "A wide valley at dusk with distant raiders' tents, families sheltering in mountain caves, painterly ancient Near East, no text, no lettering, no watermark",
+        "provider_hint": null,
+        "seed": 1002,
+        "asset_ref": null
+      },
+      "sound": {"sfx_tags": ["wind_soft"], "music_tag": "solemn_strings_low", "level_db": -22, "duck_under_narration": true},
+      "onscreen_text": [],
+      "scripture_refs": ["Judges 6:1-6"],
+      "notes": null
+    },
+    {
+      "id": "s003",
+      "order": 3,
+      "narration": {
+        "text": "Into that fear, a messenger appears and calls Gideon a mighty warrior. Gideon does not feel like one. He asks questions, and he asks for signs.",
+        "voice": "am_michael",
+        "speed": 0.92
+      },
+      "shot": {
+        "type": "medium",
+        "camera_move": {"kind": "focus_pull", "intensity": 0.5, "direction": null},
+        "transition": "crossfade",
+        "overlays": ["light_rays", "grain"]
+      },
+      "image": {
+        "prompt": "A hesitant young man beneath an old tree meeting a radiant figure in soft light, painterly ancient Near East, no text, no lettering, no watermark",
+        "provider_hint": null,
+        "seed": 1003,
+        "asset_ref": null
+      },
+      "sound": {"sfx_tags": ["shimmer_soft"], "music_tag": "solemn_strings_low", "level_db": -22, "duck_under_narration": true},
+      "onscreen_text": [],
+      "scripture_refs": ["Judges 6:11-24"],
+      "notes": "Use the local WEB text for any verse shown on screen; none is quoted in this sample."
+    },
+    {
+      "id": "s004",
+      "order": 4,
+      "narration": {
+        "text": "Many see the fleece as an act of honest doubt, and others as a model for prayer. Either way, the story stays patient with him.",
+        "voice": "am_michael",
+        "speed": 0.92
+      },
+      "shot": {
+        "type": "detail",
+        "camera_move": {"kind": "zoom_out", "intensity": 0.3, "direction": "out"},
+        "transition": "crossfade",
+        "overlays": ["grain"]
+      },
+      "image": {
+        "prompt": "A wool fleece on a threshing floor, wet with morning dew in soft dawn light, painterly ancient Near East, no text, no lettering, no watermark",
+        "provider_hint": null,
+        "seed": 1004,
+        "asset_ref": null
+      },
+      "sound": {"sfx_tags": [], "music_tag": "solemn_strings_low", "level_db": -24, "duck_under_narration": true},
+      "onscreen_text": [],
+      "scripture_refs": ["Judges 6:36-40"],
+      "notes": "Interpretation is hedged ('many see'); flag for Auditor as an interpretive claim."
+    },
+    {
+      "id": "s005",
+      "order": 5,
+      "narration": {
+        "text": "Then comes the surprise. The army is too large. Thousands go home, until only three hundred remain.",
+        "voice": "am_michael",
+        "speed": 0.92
+      },
+      "shot": {
+        "type": "wide",
+        "camera_move": {"kind": "build_up", "intensity": 0.5, "direction": null, "params": {"stages": 3}},
+        "transition": "dip_black",
+        "overlays": ["dust", "vignette"]
+      },
+      "image": {
+        "prompt": "A vast encampment thinning to a small band of men standing near a spring at dusk, painterly ancient Near East, no text, no lettering, no watermark",
+        "provider_hint": null,
+        "seed": 1005,
+        "asset_ref": null
+      },
+      "sound": {"sfx_tags": ["crowd_murmur_fade"], "music_tag": "rising_tension_low", "level_db": -20, "duck_under_narration": true},
+      "onscreen_text": [
+        {"text_id": "t003", "text": "300", "position": "center", "start_s": 4.0, "end_s": 7.0, "style": "counter"},
+        {"text_id": "t004", "text": "Judges 7", "position": "lower_third", "start_s": 4.0, "end_s": 7.0, "style": "reference"}
+      ],
+      "scripture_refs": ["Judges 7:2-8"],
+      "notes": "Pays off the open loop from scene 1."
+    },
+    {
+      "id": "s006",
+      "order": 6,
+      "narration": {
+        "text": "In the night, trumpets sound and jars break, and torches blaze on the hillside. The camp of Midian is thrown into confusion. The story closes with a quiet question: where do we place our trust?",
+        "voice": "am_michael",
+        "speed": 0.92
+      },
+      "shot": {
+        "type": "wide",
+        "camera_move": {"kind": "parallax", "intensity": 0.4, "direction": "in"},
+        "transition": "dip_black",
+        "overlays": ["light_rays", "dust", "vignette"]
+      },
+      "image": {
+        "prompt": "Silhouetted men on a ridge at night holding torches above a sleeping camp, broken clay jars, painterly ancient Near East, no text, no lettering, no watermark",
+        "provider_hint": null,
+        "seed": 1006,
+        "asset_ref": null
+      },
+      "sound": {"sfx_tags": ["horn_distant", "pottery_break"], "music_tag": "rising_tension_low", "level_db": -20, "duck_under_narration": true},
+      "onscreen_text": [],
+      "scripture_refs": ["Judges 7:16-22"],
+      "notes": "Gentle mid-video engagement line belongs between scenes in a full-length storyboard; omitted in this 6-scene sample."
+    }
+  ],
+  "audit": {"status": "not_run", "report_ref": null}
+}

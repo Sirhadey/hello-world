@@ -1,0 +1,15 @@
+{
+  "schema_version": "job_event.v1",
+  "event_id": "evt_0001",
+  "ts": "2026-11-05T12:00:00Z",
+  "project_id": "proj_gideon",
+  "job_id": "job_0001",
+  "stage": "script",
+  "type": "gate_waiting",
+  "gate": "A",
+  "progress": null,
+  "scene_id": null,
+  "message": "Script ready for review (Gate A).",
+  "data": {},
+  "error": null
+}

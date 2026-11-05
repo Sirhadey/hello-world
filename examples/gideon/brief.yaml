@@ -1,0 +1,7 @@
+# Sample "New project" form (the 5 fields from MASTER_PROMPT.md section 3).
+passage_or_topic: "Gideon and the 300 (Judges 6-7)"
+target_length_min: 12
+tone: "calm, reverent"
+visual_style: "painterly ancient Near East, warm earth tones"
+translation: WEB
+notes: "Key message: God works through weakness so that the credit is not misplaced. Hedge interpretations with 'many see'."
