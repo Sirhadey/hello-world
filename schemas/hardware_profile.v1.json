@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/bible-story-studio/schemas/hardware_profile.v1.json",
+  "title": "HardwareProfile v1",
+  "description": "Output of HardwareProbe.detect() (MASTER_PROMPT.md sections 4.1 and 7). Tier boundaries are tuned in WP3.",
+  "type": "object",
+  "required": ["schema_version", "os", "cpu", "ram_gb", "gpus", "disk_free_gb", "ffmpeg", "tier", "probed_at"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"const": "hardware_profile.v1"},
+    "os": {
+      "type": "object",
+      "required": ["name", "version"],
+      "additionalProperties": false,
+      "properties": {"name": {"enum": ["windows", "linux", "macos", "other"]}, "version": {"type": "string"}}
+    },
+    "cpu": {
+      "type": "object",
+      "required": ["model", "cores_physical", "cores_logical"],
+      "additionalProperties": false,
+      "properties": {
+        "model": {"type": "string"},
+        "cores_physical": {"type": "integer", "minimum": 1},
+        "cores_logical": {"type": "integer", "minimum": 1}
+      }
+    },
+    "ram_gb": {"type": "number", "exclusiveMinimum": 0},
+    "gpus": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "vendor", "vram_gb"],
+        "additionalProperties": false,
+        "properties": {
+          "name": {"type": "string"},
+          "vendor": {"enum": ["nvidia", "amd", "intel", "apple", "other"]},
+          "vram_gb": {"type": "number", "minimum": 0}
+        }
+      }
+    },
+    "disk_free_gb": {"type": "number", "minimum": 0},
+    "ffmpeg": {
+      "type": "object",
+      "required": ["available", "nvenc"],
+      "additionalProperties": false,
+      "properties": {
+        "available": {"type": "boolean"},
+        "version": {"type": ["string", "null"]},
+        "nvenc": {"type": "boolean"}
+      }
+    },
+    "tier": {"type": "integer", "minimum": 0, "maximum": 3},
+    "probed_at": {"type": "string", "format": "date-time"}
+  }
+}

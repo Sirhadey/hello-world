@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/bible-story-studio/schemas/job_event.v1.json",
+  "title": "JobEvent v1",
+  "description": "Event streamed from the backend job state machine to the UI (MASTER_PROMPT.md WP2).",
+  "type": "object",
+  "required": ["schema_version", "event_id", "ts", "project_id", "job_id", "stage", "type"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"const": "job_event.v1"},
+    "event_id": {"type": "string", "minLength": 1},
+    "ts": {"type": "string", "format": "date-time"},
+    "project_id": {"type": "string", "minLength": 1},
+    "job_id": {"type": "string", "minLength": 1},
+    "stage": {"enum": ["intake", "scripture", "outline", "script", "storyboard", "visual_direction", "sound_design", "images", "narration", "audit", "render", "metadata"]},
+    "type": {"enum": ["queued", "started", "progress", "completed", "failed", "gate_waiting", "gate_approved", "gate_rejected", "resumed", "cancelled"]},
+    "gate": {"enum": ["A", "B", "C", null]},
+    "progress": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+    "scene_id": {"type": ["string", "null"]},
+    "message": {"type": ["string", "null"]},
+    "data": {"type": "object"},
+    "error": {
+      "type": ["object", "null"],
+      "required": ["code", "message"],
+      "additionalProperties": false,
+      "properties": {"code": {"type": "string"}, "message": {"type": "string"}, "retryable": {"type": "boolean"}}
+    }
+  }
+}

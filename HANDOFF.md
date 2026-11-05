@@ -21,7 +21,7 @@ Status values: `NOT STARTED` · `CLAIMED` · `IN PROGRESS` · `IN REVIEW` · `DO
 
 | WP | Name | Depends on | Status | Owner | Branch | Updated | Notes |
 |---|---|---|---|---|---|---|---|
-| 0 | Foundation | none | CLAIMED | Claude (for project owner) | wp-0/foundation | 2026-11-05 | Start here. Blocks everything else. |
+| 0 | Foundation | none | IN REVIEW | Claude (for project owner) | wp-0/foundation | 2026-11-05 | PR open. Merge to unblock WP1-WP8. |
 | 1 | Agent prompt pack v0.1 | 0 | NOT STARTED | | | 2026-11-05 | |
 | 2 | Backend core | 0 | NOT STARTED | | | 2026-11-05 | |
 | 3 | Hardware probe and tiers | 0 | NOT STARTED | | | 2026-11-05 | |
@@ -37,14 +37,14 @@ Status values: `NOT STARTED` · `CLAIMED` · `IN PROGRESS` · `IN REVIEW` · `DO
 
 ## 3. Current focus
 
-**WP0 Foundation.** Nothing else can start until the repo scaffold, schemas, and contracts exist. No code has been written yet.
+**WP0 Foundation (in review).** Scaffold, schemas, contracts, CI, templates and the Gideon sample are in PR `wp-0/foundation`. Nothing else can start until it merges.
 
 ## 4. Next actions (ordered)
 
-1. [ ] Create the GitHub repo, enable branch protection on `main`, and invite collaborators (owner).
+1. [ ] Rename repo `hello-world` to `bible-story-studio`, optionally rename `master` to `main`, enable branch protection, invite collaborators (owner; cannot be done from the assistant session).
 2. [x] Commit `MASTER_PROMPT.md` and `HANDOFF.md` (done on `master`; default branch is still `master`, rename to `main` pending).
-3. [ ] Complete WP0: scaffold, schemas, contracts, CI, templates, sample Gideon storyboard.
-4. [ ] Open one GitHub Issue per WP and label it by role.
+3. [x] Complete WP0: scaffold, schemas, contracts, CI, templates, sample Gideon storyboard (PR open; owner to review and merge).
+4. [ ] Create labels from `.github/labels.yml`, then open one GitHub Issue per WP and label it by role (owner).
 5. [ ] Start WP1, then WP3, WP4, WP5, WP6a in parallel.
 
 ---
@@ -64,6 +64,7 @@ Status values: `NOT STARTED` · `CLAIMED` · `IN PROGRESS` · `IN REVIEW` · `DO
 | D-009 | 2026-11-05 | **Collaboration on GitHub:** contract-first, one owner per WP, small PRs. No model weights or binaries bundled. |
 | D-010 | 2026-11-05 | **Agent prompts ship as defaults** (A1 to A9) and remain user-editable. PasteMode (copy prompt out, paste JSON back) is the zero-cost default LLM path. |
 | D-011 | 2026-11-05 | **Windows is the assumed primary OS** (to be confirmed, see Q-001). |
+| D-012 | 2026-11-05 | **ADR-0001 foundation defaults (Proposed):** Apache-2.0, Windows primary, repo name `bible-story-studio`, JSON Schema 2020-12, ruff/pytest/codespell. See `docs/decisions/ADR-0001-foundation-defaults.md`. |
 
 ---
 
@@ -71,9 +72,9 @@ Status values: `NOT STARTED` · `CLAIMED` · `IN PROGRESS` · `IN REVIEW` · `DO
 
 | ID | Question | Owner | Default if unanswered |
 |---|---|---|---|
-| Q-001 | Confirm the primary OS (Windows assumed). | Project owner | Windows first, Linux and macOS where cheap |
-| Q-002 | License: Apache-2.0 or MIT? | Project owner | Apache-2.0 |
-| Q-003 | Public name and repo name (working name: Bible Story Studio). | Project owner | Keep the working name |
+| Q-001 | Confirm the primary OS (Windows assumed). | Project owner | Windows first, Linux and macOS where cheap (applied in ADR-0001) |
+| Q-002 | License: Apache-2.0 or MIT? | Project owner | Apache-2.0 (applied in ADR-0001; swap if you prefer MIT) |
+| Q-003 | Public name and repo name (working name: Bible Story Studio). | Project owner | Keep the working name; repo to be renamed `bible-story-studio` |
 | Q-004 | Final list of up to 4 free image providers (verify current terms and rate limits during WP4). | WP4 owner, then project owner | Decide in an ADR |
 | Q-005 | Audio scope: v1 uses Kokoro narration only. Should v1.1 also embed public-domain Bible audio clips as passage readings? | Project owner | Narration only in v1 |
 | Q-006 | Which optional free LLM tier (if any) should be offered beyond PasteMode? | WP2 owner | PasteMode only |
@@ -94,11 +95,16 @@ None yet.
 
 ## 8. Run and test commands
 
-To be filled in by WP0 (for example `make check`, `make test`, `make run`).
+```
+make setup   # pip install -r requirements-dev.txt
+make check   # lint + schema validation + spell-check + tests
+make test    # pytest only
+```
+Requires Python 3.11+ and make (Git Bash or WSL on Windows). `make run` arrives with WP2.
 
 ## 9. Known issues
 
-None yet.
+- `codespell` could not be installed in the assistant environment, so the spell-check step was not run locally; CI runs it. If CI flags a word, add it to `.codespell-ignore`.
 
 ---
 
@@ -106,4 +112,5 @@ None yet.
 
 | Date | Who | Summary |
 |---|---|---|
+| 2026-11-05 | Claude (for project owner) | WP0 delivered in PR `wp-0/foundation`: scaffold, LICENSE/NOTICE/docs, templates, CODEOWNERS, labels, 3 schemas, contracts, ADR-0001, CI, Gideon sample, `make check` (lint, schema validation, 8 tests pass locally; spell-check not run locally). Repo rename and branch settings are owner actions. |
 | 2026-11-05 | Project owner and Claude | Project brief created: `MASTER_PROMPT.md` v0.1 and initial `HANDOFF.md`. No code yet. Next: create the repo and start WP0. |

@@ -1,0 +1,11 @@
+{
+  "schema_version": "hardware_profile.v1",
+  "os": {"name": "windows", "version": "11"},
+  "cpu": {"model": "Example laptop CPU", "cores_physical": 4, "cores_logical": 8},
+  "ram_gb": 16,
+  "gpus": [{"name": "Example NVIDIA laptop GPU", "vendor": "nvidia", "vram_gb": 2}],
+  "disk_free_gb": 120,
+  "ffmpeg": {"available": true, "version": "7.0", "nvenc": true},
+  "tier": 0,
+  "probed_at": "2026-11-05T12:00:00Z"
+}

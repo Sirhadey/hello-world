@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/bible-story-studio/schemas/storyboard.v1.json",
+  "title": "Storyboard v1",
+  "description": "Storyboard contract (MASTER_PROMPT.md section 6). Scene duration is derived from TTS audio and is never hand-set: it is absent until narration has been synthesized.",
+  "type": "object",
+  "required": ["schema_version", "meta", "style_lock", "scenes", "audit"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"const": "storyboard.v1"},
+    "meta": {
+      "type": "object",
+      "required": ["title", "target_length_s", "tone", "style_preset", "translation", "language"],
+      "additionalProperties": false,
+      "properties": {
+        "title": {"type": "string", "minLength": 1},
+        "target_length_s": {"type": "integer", "minimum": 60, "maximum": 1200, "description": "Product range is 720 to 1200 s; shorter values allow sample and pilot videos."},
+        "tone": {"type": "string", "minLength": 1},
+        "style_preset": {"type": "string", "minLength": 1},
+        "translation": {"enum": ["WEB", "KJV"]},
+        "language": {"type": "string", "pattern": "^[a-z]{2}(-[A-Z]{2})?$"}
+      }
+    },
+    "style_lock": {
+      "type": "object",
+      "required": ["palette", "medium", "lighting", "negative_prompt", "grade_preset"],
+      "additionalProperties": false,
+      "properties": {
+        "palette": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "medium": {"type": "string", "minLength": 1},
+        "lighting": {"type": "string", "minLength": 1},
+        "negative_prompt": {"type": "string", "allOf": [{"pattern": "(?i)text"}, {"pattern": "(?i)watermark"}], "description": "Must forbid text and watermarks (C4)."},
+        "grade_preset": {"type": "string", "minLength": 1}
+      }
+    },
+    "scenes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/scene"}
+    },
+    "audit": {
+      "type": "object",
+      "required": ["status"],
+      "additionalProperties": false,
+      "properties": {
+        "status": {"enum": ["not_run", "passed", "failed"]},
+        "report_ref": {"type": ["string", "null"]}
+      }
+    }
+  },
+  "$defs": {
+    "scene": {
+      "type": "object",
+      "required": ["id", "order", "narration", "shot", "image"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {"type": "string", "pattern": "^s[0-9]{3,}$"},
+        "order": {"type": "integer", "minimum": 1},
+        "narration": {
+          "type": "object",
+          "required": ["text", "voice", "speed"],
+          "additionalProperties": false,
+          "properties": {
+            "text": {"type": "string", "minLength": 1},
+            "voice": {"type": "string", "minLength": 1},
+            "speed": {"type": "number", "minimum": 0.5, "maximum": 1.5}
+          }
+        },
+        "duration_s": {"type": ["number", "null"], "exclusiveMinimum": 0, "description": "Derived: TTS audio length plus padding. Written by the voice stage only."},
+        "shot": {
+          "type": "object",
+          "required": ["type", "camera_move", "transition"],
+          "additionalProperties": false,
+          "properties": {
+            "type": {"enum": ["wide", "medium", "close", "detail", "establishing", "map", "text_card"]},
+            "camera_move": {
+              "type": "object",
+              "required": ["kind"],
+              "additionalProperties": false,
+              "properties": {
+                "kind": {"enum": ["static", "zoom_in", "zoom_out", "pan", "shake", "focus_pull", "parallax", "build_up"]},
+                "intensity": {"type": "number", "minimum": 0, "maximum": 1},
+                "direction": {"enum": ["left", "right", "up", "down", "in", "out", null]},
+                "params": {"type": "object"}
+              }
+            },
+            "transition": {"enum": ["cut", "crossfade", "dip_black", "dip_white"]},
+            "overlays": {"type": "array", "items": {"enum": ["light_rays", "dust", "grain", "vignette"]}}
+          }
+        },
+        "image": {
+          "type": "object",
+          "required": ["prompt"],
+          "additionalProperties": false,
+          "properties": {
+            "prompt": {
+              "type": "string",
+              "minLength": 1,
+              "allOf": [{"pattern": "(?i)no text"}, {"pattern": "(?i)no lettering"}, {"pattern": "(?i)no watermark"}],
+              "description": "Every image prompt must say: no text, no lettering, no watermark (C4)."
+            },
+            "provider_hint": {"type": ["string", "null"]},
+            "seed": {"type": ["integer", "null"]},
+            "asset_ref": {"type": ["string", "null"]}
+          }
+        },
+        "sound": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "sfx_tags": {"type": "array", "items": {"type": "string"}},
+            "music_tag": {"type": ["string", "null"]},
+            "level_db": {"type": "number", "maximum": 0},
+            "duck_under_narration": {"type": "boolean"}
+          }
+        },
+        "onscreen_text": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["text_id", "text", "position", "start_s", "end_s"],
+            "additionalProperties": false,
+            "properties": {
+              "text_id": {"type": "string", "minLength": 1},
+              "text": {"type": "string", "minLength": 1},
+              "position": {"enum": ["center", "lower_third", "top", "bottom"]},
+              "start_s": {"type": "number", "minimum": 0},
+              "end_s": {"type": "number", "exclusiveMinimum": 0},
+              "style": {"type": ["string", "null"]}
+            }
+          }
+        },
+        "scripture_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "notes": {"type": ["string", "null"]}
+      }
+    }
+  }
+}

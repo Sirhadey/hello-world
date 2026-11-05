@@ -1,0 +1,9 @@
+# Review owners. Replace the placeholder handle with real collaborators
+# (HANDOFF.md Q-007). Later matching patterns take precedence.
+*                    @Sirhadey
+/backend/            @Sirhadey
+/frontend/           @Sirhadey
+/prompts/            @Sirhadey
+/schemas/            @Sirhadey
+/docs/decisions/     @Sirhadey
+/MASTER_PROMPT.md    @Sirhadey

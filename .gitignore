@@ -1,0 +1,40 @@
+# Secrets (C14)
+.env
+.env.*
+!.env.example
+settings.local.*
+*.key
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+
+# Node
+node_modules/
+frontend/dist/
+
+# Generated output, models, media (never commit)
+output/
+projects/
+cache/
+models/
+*.gguf
+*.safetensors
+*.onnx
+*.mp4
+*.wav
+*.mp3
+data/sfx/
+*.sqlite3
+*.db
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
