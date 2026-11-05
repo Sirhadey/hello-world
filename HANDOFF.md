@@ -2,7 +2,7 @@
 
 > Living status board. **Read `MASTER_PROMPT.md` first**, then this file, then your WP spec.
 > Update this file in every PR and at the end of every session.
-> Last updated: 2026-11-05 · by: AI assistant (WP0 verification session)
+> Last updated: 2026-11-05 · by: Base 44 (AI assistant)
 
 ---
 
@@ -21,7 +21,7 @@ Status values: `NOT STARTED` · `CLAIMED` · `IN PROGRESS` · `IN REVIEW` · `DO
 
 | WP | Name | Depends on | Status | Owner | Branch | Updated | Notes |
 |---|---|---|---|---|---|---|---|
-| 0 | Foundation | none | IN REVIEW | Claude (for project owner) | wp-0/foundation | 2026-11-05 | PR #1 open, all deliverables present, `make check` green locally (8 tests). GitHub Actions never ran: account billing lock (see B-001). Needs the owner's merge decision, then unblocks WP1-WP8. |
+| 0 | Foundation | none | IN REVIEW | Claude (for project owner) | wp-0/foundation | 2026-11-05 | Code complete; CI red on an account billing lock (B-001), not code. Merge decision with owner. |
 | 1 | Agent prompt pack v0.1 | 0 | NOT STARTED | | | 2026-11-05 | |
 | 2 | Backend core | 0 | NOT STARTED | | | 2026-11-05 | |
 | 3 | Hardware probe and tiers | 0 | NOT STARTED | | | 2026-11-05 | |
@@ -93,10 +93,16 @@ Status values: `NOT STARTED` · `CLAIMED` · `IN PROGRESS` · `IN REVIEW` · `DO
 
 ## 7. Blockers
 
-| ID | Blocker | Impact | Owner | Next step |
-|---|---|---|---|---|
-| B-001 | The GitHub account is locked for GitHub Actions billing (`The job was not started because your account is locked due to a billing issue`). Workflow run 42034490937 failed before any step executed. | CI cannot run on any PR, so the "CI is green on a fresh clone" acceptance criterion cannot be verified on GitHub. Local `make check` is the only evidence right now. | Project owner | Resolve the billing issue in GitHub account settings, then re-run the `CI` workflow on PR #1. Every later WP inherits this blocker. |
+**B-001 · CI cannot run — GitHub Actions is billing-locked (OPEN, owner action).**
 
+Every job on PR #1 fails before it starts. The check-run annotation reads:
+"The job was not started because your account is locked due to a billing issue."
+That is an account/billing state on the repository owner's GitHub account, not a
+failure in this repository's code. Consequences: the WP0 acceptance criterion
+"CI is green on a fresh clone" cannot be verified, and §14's "CI must pass before
+merge" cannot be met by any WP. To clear it: settle the billing issue on the GitHub
+account, then re-run the workflow on PR #1. WP0's own checks were verified outside
+CI — the session log records exactly what was and was not run.
 ## 8. Run and test commands
 
 ```
@@ -108,8 +114,8 @@ Requires Python 3.11+ and make (Git Bash or WSL on Windows). `make run` arrives 
 
 ## 9. Known issues
 
-- GitHub Actions is blocked by the account billing lock (B-001), so no PR has real CI status. Until that is fixed, treat a green local `make check` as the gate and say so in the PR.
-- `codespell` runs locally now and passes (its output in `make check` is quiet when clean). If it ever flags a word, add it to `.codespell-ignore`.
+- **K-001 · Schema patterns are not portable outside Python.** Five `pattern` values in `schemas/storyboard.v1.json` use a leading `(?i)` inline flag: `(?i)text`, `(?i)no text`, `(?i)no lettering`, `(?i)watermark`, `(?i)no watermark`. Python's `jsonschema` accepts them, but JSON Schema specifies ECMA-262 regular expressions, where `(?i)` is invalid — a JavaScript validator such as `ajv` (likely in `frontend/`) can reject the schema at compile time. No semantic change was made; worth fixing before WP2/WP8 consume the schemas.
+- **K-002 · `make check` toolchain unavailable in the review session.** `jsonschema`, `pyyaml`, `pytest`, `ruff` and `codespell` could not be installed there, so `make lint`, `make test` and `make spell` were not executed. Schema validation was reproduced independently — see the session log.
 
 ---
 
@@ -117,6 +123,7 @@ Requires Python 3.11+ and make (Git Bash or WSL on Windows). `make run` arrives 
 
 | Date | Who | Summary |
 |---|---|---|
+| 2026-11-05 | Base 44 (AI assistant) | WP0 review pass. PR #1 is red because GitHub Actions is billing-locked (B-001) — the job never starts; not a code failure. Verified outside CI: `storyboard.v1`, `hardware_profile.v1` and `job_event.v1` each validate their example with 0 errors (no unsupported keywords, all patterns compile); the Gideon storyboard has 6 scenes and every image prompt carries "no text" and "watermark" (C4). Logged K-001 and K-002. `make lint`, `make test` and `make spell` were not run — toolchain unavailable. WP0 stays IN REVIEW. |
 | 2026-11-05 | AI assistant | Verified existing WP0 branch against `MASTER_PROMPT.md` section 11: all deliverables present, sample storyboard validates, `make check` green locally (lint, schema validation, spell-check, 8 tests). Found that GitHub Actions never ran on PR #1 because of the account billing lock, logged as B-001. No application code written; no scope added. |
 | 2026-11-05 | Claude (for project owner) | WP0 delivered in PR `wp-0/foundation`: scaffold, LICENSE/NOTICE/docs, templates, CODEOWNERS, labels, 3 schemas, contracts, ADR-0001, CI, Gideon sample, `make check` (lint, schema validation, 8 tests pass locally; spell-check not run locally). Repo rename and branch settings are owner actions. |
 | 2026-11-05 | Project owner and Claude | Project brief created: `MASTER_PROMPT.md` v0.1 and initial `HANDOFF.md`. No code yet. Next: create the repo and start WP0. |
