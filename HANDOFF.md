@@ -2,7 +2,7 @@
 
 > Living status board. **Read `MASTER_PROMPT.md` first**, then this file, then your WP spec.
 > Update this file in every PR and at the end of every session.
-> Last updated: 2026-11-05 · by: project owner (initial)
+> Last updated: 2026-11-05 · by: AI assistant (WP0 verification session)
 
 ---
 
@@ -21,7 +21,7 @@ Status values: `NOT STARTED` · `CLAIMED` · `IN PROGRESS` · `IN REVIEW` · `DO
 
 | WP | Name | Depends on | Status | Owner | Branch | Updated | Notes |
 |---|---|---|---|---|---|---|---|
-| 0 | Foundation | none | IN REVIEW | Claude (for project owner) | wp-0/foundation | 2026-11-05 | PR open. Merge to unblock WP1-WP8. |
+| 0 | Foundation | none | IN REVIEW | Claude (for project owner) | wp-0/foundation | 2026-11-05 | PR #1 open, all deliverables present, `make check` green locally (8 tests). GitHub Actions never ran: account billing lock (see B-001). Needs the owner's merge decision, then unblocks WP1-WP8. |
 | 1 | Agent prompt pack v0.1 | 0 | NOT STARTED | | | 2026-11-05 | |
 | 2 | Backend core | 0 | NOT STARTED | | | 2026-11-05 | |
 | 3 | Hardware probe and tiers | 0 | NOT STARTED | | | 2026-11-05 | |
@@ -37,15 +37,17 @@ Status values: `NOT STARTED` · `CLAIMED` · `IN PROGRESS` · `IN REVIEW` · `DO
 
 ## 3. Current focus
 
-**WP0 Foundation (in review).** Scaffold, schemas, contracts, CI, templates and the Gideon sample are in PR `wp-0/foundation`. Nothing else can start until it merges.
+**WP0 Foundation (in review).** Every WP0 deliverable is on PR #1 (`wp-0/foundation`) and verified: scaffold, schemas, contracts, ADR-0001, templates, Gideon sample, `make check` green locally. Two owner actions hold the merge: fix the GitHub billing lock so Actions can run (B-001), then merge PR #1. Nothing else can start until it merges (WP1-WP8 all depend on WP0).
 
 ## 4. Next actions (ordered)
 
-1. [ ] Rename repo `hello-world` to `bible-story-studio`, optionally rename `master` to `main`, enable branch protection, invite collaborators (owner; cannot be done from the assistant session).
-2. [x] Commit `MASTER_PROMPT.md` and `HANDOFF.md` (done on `master`; default branch is still `master`, rename to `main` pending).
-3. [x] Complete WP0: scaffold, schemas, contracts, CI, templates, sample Gideon storyboard (PR open; owner to review and merge).
-4. [ ] Create labels from `.github/labels.yml`, then open one GitHub Issue per WP and label it by role (owner).
-5. [ ] Start WP1, then WP3, WP4, WP5, WP6a in parallel.
+1. [ ] Fix the GitHub account billing lock so GitHub Actions can run the CI workflow (B-001); until then CI cannot be verified on a PR.
+2. [ ] Review and merge PR #1 (`wp-0/foundation`) - the only thing blocking WP1-WP8.
+3. [ ] Rename repo `hello-world` to `bible-story-studio`, optionally rename `master` to `main`, enable branch protection, invite collaborators (owner; cannot be done from the assistant session).
+4. [x] Commit `MASTER_PROMPT.md` and `HANDOFF.md` (done on `master`; default branch is still `master`, rename to `main` pending).
+5. [x] Complete WP0: scaffold, schemas, contracts, CI, templates, sample Gideon storyboard (PR open; owner to review and merge).
+6. [ ] Create labels from `.github/labels.yml`, then open one GitHub Issue per WP and label it by role (owner).
+7. [ ] Start WP1, then WP3, WP4, WP5, WP6a in parallel.
 
 ---
 
@@ -91,7 +93,9 @@ Status values: `NOT STARTED` · `CLAIMED` · `IN PROGRESS` · `IN REVIEW` · `DO
 
 ## 7. Blockers
 
-None yet.
+| ID | Blocker | Impact | Owner | Next step |
+|---|---|---|---|---|
+| B-001 | The GitHub account is locked for GitHub Actions billing (`The job was not started because your account is locked due to a billing issue`). Workflow run 42034490937 failed before any step executed. | CI cannot run on any PR, so the "CI is green on a fresh clone" acceptance criterion cannot be verified on GitHub. Local `make check` is the only evidence right now. | Project owner | Resolve the billing issue in GitHub account settings, then re-run the `CI` workflow on PR #1. Every later WP inherits this blocker. |
 
 ## 8. Run and test commands
 
@@ -104,7 +108,8 @@ Requires Python 3.11+ and make (Git Bash or WSL on Windows). `make run` arrives 
 
 ## 9. Known issues
 
-- `codespell` could not be installed in the assistant environment, so the spell-check step was not run locally; CI runs it. If CI flags a word, add it to `.codespell-ignore`.
+- GitHub Actions is blocked by the account billing lock (B-001), so no PR has real CI status. Until that is fixed, treat a green local `make check` as the gate and say so in the PR.
+- `codespell` runs locally now and passes (its output in `make check` is quiet when clean). If it ever flags a word, add it to `.codespell-ignore`.
 
 ---
 
@@ -112,5 +117,6 @@ Requires Python 3.11+ and make (Git Bash or WSL on Windows). `make run` arrives 
 
 | Date | Who | Summary |
 |---|---|---|
+| 2026-11-05 | AI assistant | Verified existing WP0 branch against `MASTER_PROMPT.md` section 11: all deliverables present, sample storyboard validates, `make check` green locally (lint, schema validation, spell-check, 8 tests). Found that GitHub Actions never ran on PR #1 because of the account billing lock, logged as B-001. No application code written; no scope added. |
 | 2026-11-05 | Claude (for project owner) | WP0 delivered in PR `wp-0/foundation`: scaffold, LICENSE/NOTICE/docs, templates, CODEOWNERS, labels, 3 schemas, contracts, ADR-0001, CI, Gideon sample, `make check` (lint, schema validation, 8 tests pass locally; spell-check not run locally). Repo rename and branch settings are owner actions. |
 | 2026-11-05 | Project owner and Claude | Project brief created: `MASTER_PROMPT.md` v0.1 and initial `HANDOFF.md`. No code yet. Next: create the repo and start WP0. |
